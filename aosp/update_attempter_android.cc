@@ -709,7 +709,7 @@ bool UpdateAttempterAndroid::VerifyPayloadApplicable(
 }
 
 bool UpdateAttempterAndroid::SetPerformanceMode(bool enable,
-                                                brillo::ErrorPtr* error) {
+                                                Error* error) {
   LOG(INFO) << (enable ? "Enabling" : "Disabling") << " performance mode.";
 
   if (performance_mode_ == enable)
@@ -720,7 +720,7 @@ bool UpdateAttempterAndroid::SetPerformanceMode(bool enable,
   else
     ret = SetTaskProfiles(0, {"OtaProfiles"});
   if (!ret)
-    return LogAndSetError(error, FROM_HERE, "Could not change profiles");
+    return LogAndSetGenericError(error, __LINE__, __FILE__, "Could not change profiles");
   performance_mode_ = enable;
   return true;
 }
